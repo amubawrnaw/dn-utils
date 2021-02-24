@@ -16,7 +16,9 @@
 		<link rel="manifest" href="manifest.webmanifest">
 		<script>
 			if('serviceWorker' in navigator) {
-				navigator.serviceWorker.register('sw.js');
+				navigator.serviceWorker.register('sw.js',{
+					scope: '.' //for installability. read more: https://stackoverflow.com/questions/46541071/progressive-web-app-does-not-work-offline-error
+				});
 			};
 		</script>
 	    <!--Custom scripts / css here-->
