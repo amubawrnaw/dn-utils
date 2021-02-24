@@ -14,6 +14,11 @@
 
 		<!-- PWA Stuff -->
 		<link rel="manifest" href="manifest.webmanifest">
+		<script>
+			if('serviceWorker' in navigator) {
+				navigator.serviceWorker.register('sw.js');
+			};
+		</script>
 	    <!--Custom scripts / css here-->
 	    <script>
 	    	$(document).ready(function(){
