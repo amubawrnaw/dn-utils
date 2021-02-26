@@ -23,13 +23,45 @@
 		</script>
 	    <!--Custom scripts / css here-->
 	    <script>
+	    	var nests = [];
 	    	$(document).ready(function(){
-	    		$(".btn-outline-success").click(function(){
+	    		function updateText(){
+	    			var str = "";
+	    			for(var item of nests){
+	    				str+= item + " ";
+	    			}
+	    			$("#copyzone").val(str.trim());
+	    			$("#copy").html("Copy");//update the copy button text
+	    		}
+
+	    		$(".btn").click(function(){
 	    			this.blur();
 	    		});
 	    		$(".btn-danger").click(function(){
 	    			this.blur();
 	    			$(".active").trigger("click");
+	    			nests = [];
+	    			updateText();
+	    		});
+	    		$(".btn-outline-success").click(function(){
+	    			var nest = $(this).html();
+	    			if($(this).hasClass("active")){
+	    				//remove from list
+	    				var index = nests.indexOf(nest);
+						if (index !== -1) {
+						  nests.splice(index, 1);
+						}
+	    			}else{
+	    				//add to list
+	    				nests.push(nest);
+	    			}
+	    			updateText();
+	    		});
+
+	    		$("#copy").click(function(){
+	    			var nestnames = $("#copyzone").val();
+	    			navigator.clipboard.writeText(nestnames);
+	    			$(this).html("Copied!");
 	    		});
 	    	});
 	    </script>
@@ -47,57 +79,34 @@
 				<div class = "container">
 					<fieldset>
 						<legend>South Gate</legend>
-						<button type="button" class="btn btn-outline-success" data-toggle="button">
-							Manti
-						</button>
-						<button type="button" class="btn btn-outline-success" data-toggle="button">
-							SDN
-						</button>
-						<button type="button" class="btn btn-outline-success" data-toggle="button">
-							ABN
-						</button>
-						<button type="button" class="btn btn-outline-success" data-toggle="button">
-							PKN
-						</button>
-						<button type="button" class="btn btn-outline-success" data-toggle="button">
-							GGN
-						</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="button">Manti</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="button">SDN</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="button">ABN</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="button">PKN</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="button">GGN</button>
 					</fieldset>
 					<fieldset>
 						<legend>Anu Arendel</legend>
-						<button type="button" class="btn btn-outline-success" data-toggle="button">
-							VN
-						</button>
-						<button type="button" class="btn btn-outline-success" data-toggle="button">
-							Guard
-						</button>
-						<button type="button" class="btn btn-outline-success" data-toggle="button">
-							Mist
-						</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="button">VN</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="button">Guard</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="button">Mist</button>
 					</fieldset>
 					<fieldset>
 						<legend>SDF</legend>
-						<button type="button" class="btn btn-outline-success" data-toggle="button">
-							Granom
-						</button>
-						<button type="button" class="btn btn-outline-success" data-toggle="button">
-							Daidalos
-						</button>
-						<button type="button" class="btn btn-outline-success" data-toggle="button">
-							Chiron
-						</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="button">Granom</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="button">DDL</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="button">CN</button>
 					</fieldset>
 					<fieldset>
 						<legend>Others</legend>
-						<button type="button" class="btn btn-outline-success" data-toggle="button">
-							TKN
-						</button>
-						<button type="button" class="btn btn-outline-success" data-toggle="button">
-							NM
-						</button>
-						<button type="button" class="btn btn-danger">
-							CLEAR
-						</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="button">TKN</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="button">NM</button>
+						<button type="button" class="btn btn-danger">CLEAR</button>
+					</fieldset>
+					<fieldset>
+						<br>
+						<input class = "form-control" type = "text" id = "copyzone" disabled>
+						<button type="button" class="btn btn-secondary" id = "copy">Copy</button>
 					</fieldset>
 				</div>
 			</div>
